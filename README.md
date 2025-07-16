@@ -124,3 +124,42 @@ This script orchestrates the heating system by managing relay commands and coord
 - Temperature data collection runs independently of command processing
 - Automatic recovery and error handling for reliable 24/7 operation
 - Seamless integration with the PHP web interface and MySQL database
+
+## Web Application
+
+The web interface is built using the CodeIgniter PHP framework and provides a user-friendly dashboard for controlling and monitoring the heating system. The application runs on the Raspberry Pi and can be accessed via any web browser on the local network.
+
+### Core Features
+
+**Dashboard Interface:**
+- Real-time temperature and humidity monitoring for each room
+- Individual room heater control with on/off switches
+- Global system control for turning all heaters on/off simultaneously
+- Manual override mode with configurable duration timers
+- Rule-based automation with scheduling capabilities
+
+**API Endpoints:**
+- **Room Management**: APIs for individual room control, temperature settings, and status updates
+- **Rule System**: Automated heating rules with time-based scheduling and temperature thresholds
+- **System Synchronization**: Backend integration through the `check_rules` API for automatic heating control
+- **Settings Management**: Global system settings and configuration management
+
+**Key Controllers:**
+- **Home Controller**: Main dashboard with room overview and real-time data
+- **Rooms Controller**: Individual room management and heater control
+- **Rules Controller**: Automated heating rule configuration
+- **Sync Controller**: System synchronization and rule execution
+- **Settings Controller**: System configuration and global settings
+
+**Database Integration:**
+- MySQL database for storing temperature history, room configurations, and heating rules
+- Real-time data updates from the backend Python scripts
+- Historical data tracking for monitoring and analysis
+
+**User Experience:**
+- Responsive web interface optimized for tablet control
+- Intuitive room-by-room heating management
+- Real-time status updates and temperature monitoring
+- Automated scheduling with manual override capabilities
+
+The web application serves as the central control hub, providing an accessible interface for managing the entire SmartHeat system while maintaining seamless integration with the Arduino hardware and Python backend services.
