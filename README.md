@@ -6,15 +6,15 @@ SmartHeat is a fully custom smart heating control system I developed for my fami
 
 The setup includes:
 
-- **Arduino microcontrollers** with temperature and humidity sensors in each room
-- **Relay modules** to switch heaters on and off individually
+- **Arduino microcontroller** with temperature and humidity sensors in each room
+- **Relay module** to switch heaters on and off individually (connected to the Arduino board)
 - **A Raspberry Pi** hosting a local web interface for real-time monitoring and control
 
 ## Development
 
 I developed the entire system from scratch:
 
-- The **web interface** was built using PHP (CodeIgniter) and MySQL, enabling user-friendly control of heating zones through a tablet
+- The **web interface** was built using PHP (CodeIgniter framework) and MySQL, enabling user-friendly control of heating zones through a tablet
 - The **Arduino board** handles sensor data acquisition and heater control via relays
 - The **Raspberry Pi** acts as a hub, serving the web app and coordinating communication between devices
 
@@ -30,8 +30,8 @@ This is a testing program designed to verify the functionality of DHT22 temperat
 
 **Key Features:**
 - Reads temperature and humidity from up to 4 DHT22 sensors
-- Calculates heat index (perceived temperature) for enhanced environmental monitoring
-- Connects sensors to analog pins A0-A3 for easy breadboard prototyping
+- Provide code for calculating heat index (perceived temperature) for enhanced environmental monitoring
+- Connects sensors to analog pins for easy breadboard prototyping
 - Outputs sensor data every 5 seconds via serial communication
 - Includes error handling for sensor reading failures
 
@@ -47,8 +47,8 @@ The main Arduino program that orchestrates the complete heating control system. 
 **Key Features:**
 - **Multi-sensor support**: Manages 6 DHT22 sensors connected to pins A1-A5 and digital pin 2
 - **Relay control**: Controls 6 individual relays (pins 7-12) for independent heater switching
-- **Power management**: Uses a dedicated relay (pin 6) to control sensor power supply, reducing energy consumption
-- **JSON communication**: Receives commands and sends data in JSON format via serial connection
+- **Power management**: Uses a dedicated relay (pin 6) to control sensor power supply, reducing energy consumption and sensors continuos activation time
+- **JSON commands on serial communication**: Receives commands and sends data in JSON format via serial connection
 - **Command handling**: Processes three types of commands:
   - `rele_management`: Controls individual relay states (ON/OFF)
   - `send_data_temp`: Triggers temperature and humidity readings from all sensors
@@ -65,3 +65,62 @@ The main Arduino program that orchestrates the complete heating control system. 
 - 6 relays for individual heater control
 - 1 power management relay for sensor supply
 - Optimized pin layout for reliable operation and easy wiring
+
+## Backend System
+
+The backend runs on a Raspberry Pi 2 and consists of Python scripts that handle communication between the Arduino and the web interface, along with bash scripts for system initialization.
+
+### System Startup Scripts
+
+**`arduino_executor_1.sh`**
+- Starts the command reader service for relay management
+- Runs a continuous loop that calls the web app's `check_rules` API every 4 seconds
+- Handles automatic heating rule synchronization and execution
+
+**`arduino_executor_2.sh`**
+- Launches the temperature data collection service
+- Runs as a background daemon process for continuous monitoring
+
+### Python Backend Services
+
+**`main_read.py` - Temperature Data Handler**
+
+This script manages the continuous reading of temperature and humidity data from the Arduino board and stores it in the MySQL database.
+
+**Key Features:**
+- **Serial Communication**: Maintains connection with Arduino on `/dev/ttyACM0` at 9600 baud
+- **JSON Data Processing**: Parses incoming temperature readings and relay status updates
+- **Database Integration**: Stores temperature, humidity, and heat index values for each room
+- **Real-time Monitoring**: Processes data as it arrives from the Arduino
+- **Status Tracking**: Updates room thermostat status based on relay states
+
+**Data Flow:**
+- Receives `temp_read` JSON messages with room ID, temperature, humidity, and heat index
+- Receives `rele_status` JSON messages with relay state information
+- Automatically stores all sensor data in MySQL database for historical tracking
+
+**`commands_reader.py` - Relay Control & Communication Hub**
+
+This script orchestrates the heating system by managing relay commands and coordinating periodic data requests.
+
+**Key Features:**
+- **Command Processing**: Handles relay control commands from the web interface via UDP socket
+- **Periodic Data Requests**: Sends temperature reading requests every 120 seconds
+- **Relay Status Updates**: Requests relay status every 4 seconds
+- **Multi-threading**: Uses separate threads for socket communication and serial handling
+- **Command Types Supported**:
+  - `turn_on`/`turn_off`: Controls individual room heaters
+  - `turn_all_on`/`turn_all_off`: Controls all heaters simultaneously
+  - `rele_management`: Direct relay state management
+
+**Communication Architecture:**
+- **UDP Socket**: Receives commands from web interface on a specific port (customizable)
+- **Serial Communication**: Sends JSON commands to Arduino
+- **Database Integration**: Retrieves room configurations and updates status
+- **Threaded Processing**: Ensures responsive command handling without blocking operations
+
+**System Integration:**
+- Both scripts work together to provide real-time heating control
+- Temperature data collection runs independently of command processing
+- Automatic recovery and error handling for reliable 24/7 operation
+- Seamless integration with the PHP web interface and MySQL database
