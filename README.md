@@ -2,6 +2,8 @@
 
 SmartHeat is a fully custom smart heating control system I developed for my family home. The system integrates multiple sensors and devices to monitor and manage the temperature in each room independently, allowing for efficient and remote control of heating.
 
+🔗 **[View full project details on my website](https://ceradini.github.io/home-app.html)**
+
 ## Overview
 
 The setup includes:
