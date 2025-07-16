@@ -1,0 +1,1 @@
+<iframe id="weatherIFrame" class="weather-iframe" src="https://www.meteoblue.com/it/tempo/widget/three/chiampo_italia_3178884?geoloc=fixed&nocurrent=0&noforecast=0&days=7&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&layout=image" frameborder="0" scrolling="NO" allowtransparency="true" sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox"></iframe>

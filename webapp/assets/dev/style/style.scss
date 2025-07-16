@@ -1,0 +1,400 @@
+$flat-blue: #19b5fe;
+$flat-blue-dark: #2d55ff;
+$flat-blue-super-dark: #2574a9;
+$flat-red: #f03434;
+$flat-gray: #ecf0f1;
+$flat-yellow: #fad859;
+$flat-orange: #f27935;
+$flat-green: #3fc380;
+
+.blue {
+    color: $flat-blue;
+}
+
+.body-night {
+    color: white;
+    background: #272f37;
+
+    .modal-content {
+        color: black;
+    }
+
+    .box-header {
+        color: white !important;
+    }
+
+    .cbp-vimenu {
+        background: #5f5f5f;
+    }
+}
+
+.main-container {
+    height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
+    padding: 0.5em;
+    padding-left: 90px;
+
+    .header-container {
+        .row {
+            margin: 0 !important;
+        }
+
+        .box-header {
+            border: 3px solid #6c7a89;
+            border-radius: 0.5em;
+            font-size: 2.3em;
+            font-weight: bold;
+            color: #474f57;
+        }
+    }
+}
+
+.room-box {
+    border: 5px solid $flat-gray;
+    border-radius: 7px;
+    padding-top: 1em;
+    padding-bottom: .25em;
+    text-align: center;
+    font-size: 1em;
+    cursor: pointer;
+
+    &.turned-on {
+        border: 5px solid $flat-red;
+    }
+
+    .room-title {
+        font-weight: bold;
+    }
+
+    .room-temperature {
+        font-size: 4.5em;
+    }
+
+    .room-other-details {
+        font-size: 1.25em;
+
+        .bg-light {
+            color: $flat-blue-dark;
+        }
+    }
+
+    .room-buttons-container {
+        .row {
+            --bs-gutter-x: 1rem;
+        }
+
+        margin-top: 1em;
+
+        .state-details {
+            border: 1px solid #ecf0f1;
+            padding: .5em;
+            border-radius: 7px;
+            margin-top: 2px;
+            font-size: 1.5em;
+        
+            .bi-hand-index {
+                color: $flat-yellow;
+            }
+        
+            .bi-calendar-week {
+                color: $flat-blue-super-dark;
+            }
+        }
+
+        .empty-state {
+            height: 36px;
+        }
+
+        .room-objective-temp {
+            padding-top: .5em;
+            font-size: 1.8em;
+        }
+    }
+
+    .temp-blue {
+        background: $flat-blue;
+    }
+
+    .temp-green {
+        background: $flat-green;
+    }
+
+    .temp-yellow {
+        background: $flat-yellow;
+    }
+
+    .temp-orange {
+        background: $flat-orange;
+    }
+
+    .temp-red {
+        background: $flat-red;
+    }
+}
+
+.btn-circle {
+    height: 7.5vh;
+    width: 7.5vh;
+    border-radius: 50%;
+}
+
+.btn-circle-small {
+    height: 5vh;
+    width: 5vh;
+    border-radius: 50%;
+}
+
+.btn-turn-on, .btn-turn-all-on, .btn-status-manual-all, .btn-status-manual, .btn-status-automatic-all, .btn-status-automatic {
+    font-size: 1.45em;
+    border: 1px solid $flat-red;
+    color: $flat-red;
+    background: white;
+
+    &:hover {
+        background: $flat-red;
+        color: white;
+    }
+}
+
+.btn-turn-all-on {
+    background: $flat-red;
+    color: white;
+
+    &:hover {
+        background: white;
+        color: $flat-red;
+    }
+}
+
+.btn-turn-off, .btn-turn-all-off {
+    font-size: 1.45em;
+    border: 1px solid $flat-blue;
+    color: $flat-blue;
+    background: white;
+
+    &:hover {
+        background: $flat-blue;
+        color: white;
+    }
+}
+
+.btn-turn-all-off {
+    background: $flat-blue;
+    color: white;
+
+    &:hover {
+        background: white;
+        color: $flat-blue;
+    }
+}
+
+.btn-status-manual-all, .btn-status-manual {
+    background: $flat-yellow;
+    border: 1px solid $flat-yellow;
+    color: white;
+
+    &:hover {
+        background: white;
+        color: $flat-yellow;
+    }
+}
+
+.btn-status-automatic-all, .btn-status-automatic {
+    background: $flat-blue-super-dark;
+    border: 1px solid $flat-blue-super-dark;
+    color: white;
+
+    &:hover {
+        background: white;
+        color: $flat-blue-super-dark;
+    }
+}
+
+.btn-add-schedule {
+    background: $flat-green;
+    border: 1px solid $flat-green;
+    color: white;
+
+    &:hover {
+        background: white;
+        color: $flat-green;
+    }
+}
+
+.modal-content {
+    .btn-outline-light {
+        color: black;
+    }
+}
+
+.time-left {
+    font-size: 2em;
+    float: right;
+    border: 5px solid #ecf0f1;
+    border-radius: 7px;
+    padding: .2em;
+
+    .time-left-text {
+        float: right;
+        margin: 3px 1px 0px 15px;
+    }
+}
+
+.settings-container {
+    padding: 1em;
+
+    .day-rules-container {
+        display: none;
+
+        &.active {
+            display: inherit;
+        }
+
+        .rule-schedule {
+            padding: 0.5em;
+            border: 1px solid $flat-gray;
+            border-radius: 0.5em;
+            width: 95%;
+            margin: 1em auto;
+        }
+    }
+}
+
+.table {
+    .options {
+        text-align: right;
+    }
+}
+
+.badge {
+    font-size: 1.6em;
+    padding: 0.2em 0.2em;
+}
+
+.weather-iframe {
+    width: 101%;
+    height: 101%;
+}
+
+.switch-status-container {
+    float: right;
+    font-size: 1.75em;
+    margin-right: 3em;
+
+    div {
+        float: left;
+    }
+
+    .form-switch {
+        padding: 0;
+        margin: .75em;
+
+        .form-check-input {
+            margin: 0;
+        }
+    }
+
+    .my-switch-icon {
+        margin: .3em;
+
+        &.off {
+            opacity: 15%;
+        }
+    }
+}
+
+.rules-container {
+    table {
+        font-size: 1.5em;
+
+        button, a {
+            font-size: 1em;
+        }
+    }
+}
+
+#modalRoom, #modalManualSettings {
+    font-size: 1.8em;
+
+    .btn {
+        font-size: 1.5rem;
+    }
+
+    select {
+        font-size: 1.1em;
+    }
+}
+
+.number-step-input {
+    margin: 0 auto;
+    font-size: 1.3em;
+
+    input,
+    textarea {
+      border: 1px solid #eeeeee;
+      box-sizing: border-box;
+      margin: 0;
+      outline: none;
+      padding: 10px;
+    }
+    
+    input[type="button"] {
+      -webkit-appearance: button;
+      cursor: pointer;
+      width: 2.5em;
+      border-radius: 4px;
+    }
+    
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+    }
+    
+    .input-group {
+      clear: both;
+      margin: 15px 0;
+      position: relative;
+    }
+    
+    .input-group input[type='button'] {
+      background-color: #eeeeee;
+      min-width: 38px;
+      width: auto;
+      transition: all 300ms ease;
+    }
+    
+    .input-group .button-minus,
+    .input-group .button-plus {
+      font-weight: bold;
+      height: 38px;
+      padding: 0;
+      width: 38px;
+      position: relative;
+    }
+    
+    .input-group .quantity-field {
+      position: relative;
+      height: 38px;
+      left: -6px;
+      text-align: center;
+      width: 62px;
+      display: inline-block;
+      font-size: 13px;
+      margin: 0 0 5px;
+      resize: vertical;
+    }
+
+    .quantity-field {
+        text-align: center;
+    }
+    
+    .button-plus {
+      left: -13px;
+    }
+    
+    input[type="number"] {
+      -moz-appearance: textfield;
+      -webkit-appearance: none;
+    }
+}

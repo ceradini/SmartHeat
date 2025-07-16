@@ -1,0 +1,115 @@
+#-------------------------
+# Operating Specific Junk Files
+#-------------------------
+
+# OS X
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# OS X Thumbnails
+._*
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# KDE directory preferences
+webapp/.directory
+
+# Linux trash folder which might appear on any partition or disk
+webapp/.Trash-*
+
+#-------------------------
+# Environment Files
+#-------------------------
+# These should never be under version control,
+# as it poses a security risk.
+webapp/.env
+webapp/.vagrant
+webapp/Vagrantfile
+
+#-------------------------
+# Temporary Files
+#-------------------------
+webapp/writable/cache/*
+webapp/!writable/cache/index.html
+
+webapp/writable/logs/*
+webapp/!writable/logs/index.html
+
+webapp/writable/session/*
+webapp/!writable/session/index.html
+
+webapp/writable/uploads/*
+webapp/!writable/uploads/index.html
+
+webapp/writable/debugbar/*
+
+webapp/php_errors.log
+
+#-------------------------
+# User Guide Temp Files
+#-------------------------
+webapp/user_guide_src/build/*
+webapp/user_guide_src/cilexer/build/*
+webapp/user_guide_src/cilexer/dist/*
+webapp/user_guide_src/cilexer/pycilexer.egg-info/*
+
+#-------------------------
+# Test Files
+#-------------------------
+webapp/tests/coverage*
+
+# Don't save phpunit under version control.
+webapp/phpunit
+
+#-------------------------
+# Composer
+#-------------------------
+webapp/vendor/
+
+#-------------------------
+# IDE / Development Files
+#-------------------------
+
+# Modules Testing
+webapp/_modules/*
+
+# phpenv local config
+webapp/.php-version
+
+# Jetbrains editors (PHPStorm, etc)
+webapp/.idea/
+webapp/*.iml
+
+# Netbeans
+webapp/nbproject/
+webapp/build/
+webapp/nbbuild/
+webapp/dist/
+webapp/nbdist/
+webapp/nbactions.xml
+webapp/nb-configuration.xml
+webapp/.nb-gradle/
+
+# Visual Studio Code
+.vscode/
+
+webapp/results/
+webapp/phpunit*.xml
+webapp/.phpunit.*.cache
+
+webapp/application/sessions/*
+webapp/node_modules
+webapp/.sass-cache/9c2bf2ea2c459cfe9cd17960ede05994c1e684d7/style.scssc

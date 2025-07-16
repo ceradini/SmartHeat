@@ -1,0 +1,18 @@
+{
+  "name": "home-app",
+  "version": "1.0.0",
+  "authors": [
+    "Matteo Ceradini <matteo.ceradini@gmail.com>"
+  ],
+  "description": "Home APP",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "handlebars": "^4.0.12",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.47"
+  }
+}
