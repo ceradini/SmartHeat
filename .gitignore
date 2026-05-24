@@ -113,3 +113,4 @@ webapp/.phpunit.*.cache
 webapp/application/sessions/*
 webapp/node_modules
 webapp/.sass-cache/9c2bf2ea2c459cfe9cd17960ede05994c1e684d7/style.scssc
+webapp/**/*.csv

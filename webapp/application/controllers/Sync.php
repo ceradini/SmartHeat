@@ -66,6 +66,19 @@ class Sync extends CI_Controller
     }
 
     public function aggregate_temperatures(){
+        $export_dir = FCPATH . 'exports/temperatures';
+        echo "Export directory: " . $export_dir . "<br>";
+
+        $grouped = $this->room_model->get_temperatures_for_export();
+
+        if (!empty($grouped)) {
+            $files = $this->room_model->export_temperatures_to_csv($grouped, $export_dir);
+            echo "Exported " . count($files) . " CSV file(s).<br>";
+        } else {
+            echo "<strong>No data found to export (no records older than today).</strong><br>";
+        }
+
+        // 3. Delete old records as before
         $this->room_model->delete_old_temperatures();
     }
 }

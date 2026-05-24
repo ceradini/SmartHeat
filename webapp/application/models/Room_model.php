@@ -332,6 +332,77 @@ class Room_model extends CI_Model {
         return $this->db->get()->result_array();
     }
 
+    function get_temperatures_for_export() {
+        $this->db->select('rt.id, rt.room_id, r.name as room_name, rt.temp, rt.humidity, rt.heat_index, rt.time');
+        $this->db->from('rooms_temperature as rt');
+        $this->db->join('rooms as r', 'rt.room_id = r.id', 'left');
+        $this->db->where('rt.time <', date('Y-m-d'));
+        $this->db->order_by('rt.time', 'ASC');
+
+        $rows = $this->db->get()->result_array();
+
+        // Group rows by year-month key
+        $grouped = [];
+        foreach ($rows as $row) {
+            $month_key = date('Y-m', strtotime($row['time']));
+            $grouped[$month_key][] = $row;
+        }
+
+        return $grouped;
+    }
+
+    function export_temperatures_to_csv($grouped, $export_dir) {
+        if (!is_dir($export_dir)) {
+            mkdir($export_dir, 0755, true);
+        }
+
+        $csv_header = ['id', 'room_id', 'room_name', 'temp', 'humidity', 'heat_index', 'time'];
+        $files_written = [];
+
+        // Re-group by year only (input $grouped is keyed by 'YYYY-MM')
+        $grouped_by_year = [];
+        foreach ($grouped as $month_key => $rows) {
+            $year_key = substr($month_key, 0, 4); // extract 'YYYY' from 'YYYY-MM'
+            foreach ($rows as $row) {
+                $grouped_by_year[$year_key][] = $row;
+            }
+        }
+
+        foreach ($grouped_by_year as $year_key => $rows) {
+            $filepath = rtrim($export_dir, '/') . '/' . $year_key . '.csv';
+            $file_exists = file_exists($filepath);
+
+            $fh = fopen($filepath, 'a');
+            if (!$fh) {
+                log_message('error', "Room_model::export_temperatures_to_csv - Cannot open file: $filepath");
+                continue;
+            }
+
+            if (!$file_exists) {
+                fputcsv($fh, $csv_header);
+            }
+
+            foreach ($rows as $row) {
+                fputcsv($fh, [
+                    $row['id'],
+                    $row['room_id'],
+                    $row['room_name'],
+                    $row['temp'],
+                    $row['humidity'],
+                    $row['heat_index'],
+                    $row['time'],
+                ]);
+            }
+
+            fclose($fh);
+            $files_written[] = $filepath;
+            log_message('info', "Room_model::export_temperatures_to_csv - Written " . count($rows) . " rows to $filepath");
+        }
+
+        return $files_written;
+    }
+
+
     function delete_old_temperatures(){
         $this->db->where('time <', date('Y-m-d'));
         $this->db->delete('rooms_temperature');
